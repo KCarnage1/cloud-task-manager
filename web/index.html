@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Task manager</title>
+<meta name="description" content="Keep track of what is waiting, in progress and finished.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the tasks</a>
+
+<section id="auth" hidden>
+  <div class="auth-card">
+    <h1>Task manager</h1>
+    <p class="lede">Your tasks, in three columns: waiting, in progress, finished.</p>
+    <div class="tabs" role="group" aria-label="Account">
+      <button type="button" data-mode="login" aria-pressed="true">Sign in</button>
+      <button type="button" data-mode="register" aria-pressed="false">Create account</button>
+    </div>
+    <form id="auth-form" novalidate>
+      <label class="field">Username<input name="username" autocomplete="username" autocapitalize="none" spellcheck="false" required><small class="err" data-for="username"></small></label>
+      <label class="field">Password<input name="password" type="password" autocomplete="current-password" required><small class="hint" id="pw-hint" hidden>At least 10 characters.</small><small class="err" data-for="password"></small></label>
+      <label class="check"><input type="checkbox" id="show-pw"> Show password</label>
+      <p class="form-error" id="auth-error" role="alert"></p>
+      <button class="primary" type="submit" id="auth-submit">Sign in</button>
+    </form>
+  </div>
+</section>
+
+<div id="app" hidden>
+  <header class="top">
+    <h1>Task manager</h1>
+    <p class="who"><span id="who"></span> <button type="button" id="logout" class="link">Sign out</button></p>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <form id="add" class="add" novalidate>
+      <label class="sr-only" for="new-title">New task</label>
+      <input id="new-title" name="title" placeholder="What needs doing?" maxlength="120" autocomplete="off" required>
+      <label class="sr-only" for="new-priority">Priority</label>
+      <select id="new-priority" name="priority"><option value="low">Low</option><option value="normal" selected>Normal</option><option value="high">High</option></select>
+      <label class="sr-only" for="new-due">Due date</label>
+      <input id="new-due" name="due" type="date">
+      <button class="primary" type="submit">Add task</button>
+      <small class="err" id="add-error" role="alert"></small>
+    </form>
+
+    <div class="toolbar">
+      <label class="search"><span class="sr-only">Search tasks</span><input id="search" type="search" placeholder="Search tasks" autocomplete="off"></label>
+      <label class="filter">Priority
+        <select id="filter"><option value="">All</option><option value="high">High</option><option value="normal">Normal</option><option value="low">Low</option></select>
+      </label>
+      <span class="shortcut">Press <kbd>N</kbd> to add</span>
+    </div>
+
+    <div id="notice" class="notice" role="status" hidden></div>
+
+    <div class="cols-tabs" id="cols-tabs" role="group" aria-label="Show column"></div>
+    <div class="board" id="board">
+      <section class="col" data-status="todo" aria-labelledby="h-todo"><h2 id="h-todo">Waiting <span class="count" data-count="todo">0</span></h2><ul class="list" data-list="todo"></ul></section>
+      <section class="col" data-status="doing" aria-labelledby="h-doing"><h2 id="h-doing">In progress <span class="count" data-count="doing">0</span></h2><ul class="list" data-list="doing"></ul></section>
+      <section class="col" data-status="done" aria-labelledby="h-done"><h2 id="h-done">Finished <span class="count" data-count="done">0</span></h2><ul class="list" data-list="done"></ul></section>
+    </div>
+  </main>
+</div>
+
+<dialog id="edit" aria-labelledby="edit-h">
+  <form id="edit-form" novalidate>
+    <h2 id="edit-h">Edit task</h2>
+    <label class="field">Title<input name="title" maxlength="120" required><small class="err" data-for="title"></small></label>
+    <label class="field">Notes<textarea name="notes" rows="4" maxlength="2000"></textarea><small class="err" data-for="notes"></small></label>
+    <div class="row">
+      <label class="field">Priority<select name="priority"><option value="low">Low</option><option value="normal">Normal</option><option value="high">High</option></select></label>
+      <label class="field">Due date<input name="due" type="date"><small class="err" data-for="due"></small></label>
+    </div>
+    <details class="history"><summary>Status history</summary><ol id="history"></ol></details>
+    <p class="form-error" id="edit-error" role="alert"></p>
+    <div class="actions">
+      <button type="button" class="danger" id="delete">Delete task</button>
+      <span class="spacer"></span>
+      <button type="button" id="cancel">Cancel</button>
+      <button type="submit" class="primary">Save</button>
+    </div>
+  </form>
+</dialog>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+# Replace tasks.example.com with your domain (its DNS must point at this machine).
+# Caddy gets and renews the HTTPS certificate on its own.
+tasks.example.com {
+	encode gzip
+	reverse_proxy 127.0.0.1:8080
+}

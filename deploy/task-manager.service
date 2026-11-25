@@ -1,0 +1,18 @@
+[Unit]
+Description=Task manager
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/java -cp /opt/task-manager/classes taskmanager.Main
+Environment=PORT=8080 BIND=127.0.0.1 DATA_DIR=/var/lib/task-manager WEB_DIR=/opt/task-manager/web
+Environment=SECURE_COOKIES=true TRUST_PROXY=true
+DynamicUser=yes
+StateDirectory=task-manager
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

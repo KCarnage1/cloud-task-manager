@@ -1,4 +1,17 @@
-# Cloud Task Manager
+<h1 align="center">Cloud Task Manager</h1>
+
+<p align="center"><b>Task manager with accounts, in plain JavaScript and the JDK alone.</b></p>
+
+<p align="center">
+  <img src="https://img.shields.io/github/actions/workflow/status/KCarnage1/cloud-task-manager/ci.yml?branch=main&style=flat-square&label=tests" alt="Test status of the latest commit on main"> <img src="https://img.shields.io/badge/java-17%2B-ED8B00?style=flat-square&logo=openjdk&logoColor=white" alt="Java 17 or newer"> <img src="https://img.shields.io/badge/framework-none-2ea44f?style=flat-square" alt="No framework, no database server"> <img src="https://img.shields.io/badge/licence-MIT-blue?style=flat-square" alt="MIT licence">
+</p>
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/dark.jpg">
+    <img src="docs/light.jpg" alt="Three columns, Waiting, In progress and Finished, holding task cards with priorities, due dates and an overdue warning" width="860">
+  </picture>
+</p>
 
 A task manager with user accounts, task creation and status tracking. The page is plain HTML, CSS and JavaScript; the backend is Java using only what ships with the JDK. There is no framework, no database server and no paid service. It's meant to run on a small cloud virtual machine.
 
@@ -83,6 +96,18 @@ Put it behind Caddy or any HTTPS proxy as above. Back up by copying `data.json` 
 - Sessions are held in memory, so everyone signs in again after a restart.
 - No drag and drop; moving a task uses buttons, which also works by keyboard and on touch screens.
 
+## Project layout
+
+```text
+server/src/taskmanager/   Main, Server (HTTP and routes), Store (JSON file), Passwords, RateLimiter, Validation, Json
+server/test/              TaskManagerTest: 21 checks, the last eight over real HTTP
+web/                      index.html, app.js, style.css
+deploy/                   setup.sh, task-manager.service, Caddyfile
+Dockerfile                container image, built by CI on every push
+```
+
 ## Licence
 
 MIT
+
+Part of my [portfolio](https://kcarnage1.github.io/My-Persona-Portfolio/).
